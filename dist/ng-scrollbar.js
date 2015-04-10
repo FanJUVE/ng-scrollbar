@@ -96,8 +96,8 @@ angular.module('ngScrollbar', []).directive('ngScrollbar', [
         var buildScrollbar = function (rollToBottom) {
           // Getting top position of a parent element to place scroll correctly
           var parentOffsetTop = 0;
-            if(!scope.insideForm)
-              parentOffsetTop = element[0].parentElement.offsetTop;
+          if(!scope.insideForm)
+            parentOffsetTop = element[0].parentElement.offsetTop;
           var wheelEvent = win[0].onmousewheel !== undefined ? 'mousewheel' : 'DOMMouseScroll';
           rollToBottom = flags.bottom || rollToBottom;
           mainElm = angular.element(element.children()[0]);
@@ -107,7 +107,9 @@ angular.module('ngScrollbar', []).directive('ngScrollbar', [
           thumbLine = angular.element(thumb.children()[0]);
           track = angular.element(angular.element(tools.children()[0]).children()[1]);
           // Check if scroll bar is needed
-          page.height = element[0].offsetHeight - parentOffsetTop;
+          page.height = element[0].offsetHeight - parentOffsetTop + 1;
+          console.log(parentOffsetTop);
+          console.log(page.height);
           if (page.height < 0) {
             page.height = element[0].offsetHeight;
           }
@@ -117,7 +119,7 @@ angular.module('ngScrollbar', []).directive('ngScrollbar', [
           dragger.trackHeight = page.height;
           // update the transcluded content style and clear the parent's
           calcStyles();
-          element.css({ overflow: 'hidden' });
+          //element.css({ overflow: 'hidden' });
           mainElm.css(scrollboxStyle);
           transculdedContainer.css(pageStyle);
           thumb.css(draggerStyle);
