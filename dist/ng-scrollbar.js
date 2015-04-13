@@ -12,6 +12,7 @@ angular.module('ngScrollbar', []).directive('ngScrollbar', [
         var mainElm, transculdedContainer, tools, thumb, thumbLine, track;
         var flags = { bottom: attrs.hasOwnProperty('bottom') };
         var win = angular.element($window);
+        var stopScroll = 'stop_scroll';
         // Elements
         var dragger = { top: 0 }, page = { top: 0 };
         // Styles
@@ -160,6 +161,17 @@ angular.module('ngScrollbar', []).directive('ngScrollbar', [
           } else {
             dragger.top = Math.max(0, Math.min(parseInt(page.height, 10) - parseInt(dragger.height, 10), parseInt(dragger.top, 10)));
           }
+
+          $(transculdedContainer[0]).find('['+stopScroll+']').on('mouseover', function () {
+            transculdedContainer[0].removeEventListener(wheelEvent, wheelHandler, false);
+          });
+
+          $(transculdedContainer[0]).find('['+stopScroll+']').on('mouseout', function () {
+            if(scope.showYScrollbar)
+              transculdedContainer[0].addEventListener(wheelEvent, wheelHandler, false);
+          });
+
+
           redraw();
         };
         var rebuildTimer;
