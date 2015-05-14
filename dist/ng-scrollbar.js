@@ -109,8 +109,6 @@ angular.module('ngScrollbar', []).directive('ngScrollbar', [
           track = angular.element(angular.element(tools.children()[0]).children()[1]);
           // Check if scroll bar is needed
           page.height = element[0].offsetHeight - parentOffsetTop - 3;
-          console.log(parentOffsetTop);
-          console.log(page.height);
           if (page.height < 0) {
             page.height = element[0].offsetHeight;
           }
